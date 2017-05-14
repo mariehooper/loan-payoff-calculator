@@ -29,14 +29,19 @@ export default class App extends React.Component {
     const { loans } = this.state;
     totals.balance = loans.reduce((balance, loan) => balance + Number(loan.balance), 0);
     totals.payment = loans.reduce((payment, loan) => payment + Number(loan.payment), 0);
-    const durations = loans.map((loan) => {
-      const interest = Number((loan.rate / 100) / 12);
+
+    // find highest duration of loans and total interest paid
+    totals.interest = loans.reduce((interest, loan) => {
+      const rate = Number((loan.rate / 100) / 12);
       const payment = Number(loan.payment);
       const balance = Number(loan.balance);
-      const numerator = 1 / (1 - ((interest * balance) / payment));
-      return Math.log(numerator) / Math.log(1 + interest);
-    });
-    totals.duration = Math.max(...durations);
+
+      const numerator = 1 / (1 - ((rate * balance) / payment));
+      const duration = Math.log(numerator) / Math.log(1 + rate);
+      totals.duration = Math.max(totals.duration || 0, duration);
+
+      return interest + ((payment * duration) - balance);
+    }, 0);
     // set state
     this.setState({ totals });
   }
