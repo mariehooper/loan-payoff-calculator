@@ -1,0 +1,32 @@
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin: 0.2rem 0; }
+
+input,
+select {
+  width: 100%;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  padding: 0.5rem;
+  margin-bottom: 1rem; }
+
+select {
+  height: 30px; }
+
+.form-header {
+  color: #FFF;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 0;
+  background: #DD2476;
+  padding: 1.5rem 1rem;
+  margin: -20px -20px 20px -20px; }
+
+.row {
+  display: flex; }
+
+.column {
+  flex: 1; }
+  .column:not(:last-child) {
+    margin-right: 1rem; }

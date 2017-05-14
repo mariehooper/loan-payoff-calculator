@@ -1,4 +1,5 @@
 import React from 'react';
+import './Totals.css';
 
 export default function Totals({ balance, payment, duration }) {
   return (

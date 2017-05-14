@@ -1,4 +1,5 @@
 import React from 'react';
+import './LoanForm.css';
 
 export default class LoanForm extends React.Component {
   static propTypes = {

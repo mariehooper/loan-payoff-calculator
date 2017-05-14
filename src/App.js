@@ -57,6 +57,7 @@ export default class App extends React.Component {
         </div>
         <div className="page-wrapper">
           <div className="col col-1">
+            <h2>Loans</h2>
             <LoanList loans={this.state.loans} openModal={this.openModal} />
           </div>
           <div className="sidebar col col-2">

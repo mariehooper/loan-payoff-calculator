@@ -1,0 +1,44 @@
+@import '../variables';
+
+.loan-list-header {
+  display: flex;
+  border-bottom: 1px solid $primary-pink;
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.column-type {
+  width: 20%;
+}
+
+.column-issuer {
+  width: 25%;
+}
+
+.column-rate {
+  width: 10%;
+}
+
+.column-compound {
+  width: 15%
+}
+
+.column-balance {
+  width: 15%
+}
+
+ul.loan-list {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  li {
+    border-bottom: 1px solid $light-grey;
+    padding: 0.5rem 0.2rem;
+  }
+}
+
+.loan-details {
+  display: inline-block;
+  font-size: 0.9rem;
+}

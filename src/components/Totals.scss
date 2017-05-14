@@ -1,0 +1,21 @@
+@import '../variables';
+
+.stats {
+  border: 1px solid $white;
+  margin: 1rem 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.stats-header {
+  margin: 0;
+  font-weight: 300;
+  font-size: 1rem;
+  color: $white;
+}
+
+.stats-number {
+  font-size: 2rem;
+  color: $white;
+  margin: 0.2rem;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './LoanList.css';
 
 export default function LoanList({ loans, openModal }) {
   return (
