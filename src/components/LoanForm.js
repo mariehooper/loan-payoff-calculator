@@ -1,24 +1,27 @@
 import React from 'react';
 import './LoanForm.css';
 
+const initialState = {
+  type: '',
+  issuer: '',
+  rate: '',
+  compound: '',
+  balance: '',
+  payment: '',
+};
+
 export default class LoanForm extends React.Component {
   static propTypes = {
-    addLoan: React.PropTypes.func.isRequired,
+    saveLoan: React.PropTypes.func.isRequired,
     closeModal: React.PropTypes.func.isRequired,
+    title: React.PropTypes.string.isRequired,
   };
 
-  state = {
-    type: '',
-    issuer: '',
-    rate: '',
-    compound: '',
-    balance: '',
-    payment: '',
-  };
+  state = { ...initialState, ...this.props.loan };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.addLoan(this.state);
+    this.props.saveLoan(this.state);
     this.props.closeModal();
   }
 
@@ -31,7 +34,7 @@ export default class LoanForm extends React.Component {
   render() {
     return (
       <form className="loan-details-form" onSubmit={this.handleSubmit}>
-        <h3 className="form-header">Add a new loan</h3>
+        <h3 className="form-header">{this.props.title}</h3>
 
         <div className="row">
           <div className="column">
@@ -110,8 +113,8 @@ export default class LoanForm extends React.Component {
         </div>
 
         <div className="button-row">
+          <button className="btn btn-submit" type="submit">Save</button>
           <button className="btn btn-link" onClick={this.props.closeModal}>Cancel</button>
-          <button className="btn">Save</button>
         </div>
       </form>
     );

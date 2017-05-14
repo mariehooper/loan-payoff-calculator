@@ -1,5 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
+import shortid from 'shortid';
+
 import './App.css';
 import LoanForm from './components/LoanForm';
 import Totals from './components/Totals';
@@ -11,15 +13,35 @@ export default class App extends React.Component {
     loans: [],
     totals: {},
     modalIsOpen: false,
+    loanToEdit: undefined,
   };
 
   addLoan = (loan) => {
     // make copy of existing loans
     const loans = [...this.state.loans];
     // push new loan in
-    loans.push(loan);
+    loans.push({
+      id: shortid.generate(),
+      ...loan,
+    });
     // set state
     this.setState({ loans }, this.calculateTotals);
+  }
+
+  updateLoan = (loanToUpdate) => {
+    const loanIndex = this.state.loans.findIndex(loan => loan.id === loanToUpdate.id);
+    const loans = [
+      ...this.state.loans.slice(0, loanIndex),
+      loanToUpdate,
+      ...this.state.loans.slice(loanIndex + 1),
+    ];
+    this.setState({ loans }, this.calculateTotals);
+  }
+
+  setLoanToEdit = (loanId) => {
+    this.setState({
+      loanToEdit: this.state.loans.find(loan => loan.id === loanId),
+    });
   }
 
   calculateTotals = () => {
@@ -55,6 +77,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    const formTitle = this.state.loanToEdit ? 'Edit existing loan' : 'Add new loan';
+    const saveForm = this.state.loanToEdit ? this.updateLoan : this.addLoan;
     return (
       <div className="App">
         <div className="header-block">
@@ -63,7 +87,11 @@ export default class App extends React.Component {
         <div className="page-wrapper">
           <div className="col col-1">
             <h2>Loans</h2>
-            <LoanList loans={this.state.loans} openModal={this.openModal} />
+            <LoanList
+              loans={this.state.loans}
+              openModal={this.openModal}
+              setLoanToEdit={this.setLoanToEdit}
+            />
           </div>
           <div className="sidebar col col-2">
             <Totals {...this.state.totals} />
@@ -72,9 +100,14 @@ export default class App extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
-          contentLabel="Add New Loan Modal"
+          contentLabel={formTitle}
         >
-          <LoanForm addLoan={this.addLoan} closeModal={this.closeModal} />
+          <LoanForm
+            title={formTitle}
+            saveLoan={saveForm}
+            closeModal={this.closeModal}
+            loan={this.state.loanToEdit}
+          />
         </Modal>
       </div>
     );

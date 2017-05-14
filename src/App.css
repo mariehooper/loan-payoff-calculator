@@ -35,6 +35,8 @@
     .btn-link:hover {
       background: transparent;
       color: #DD2476; }
+  .btn-submit {
+    float: right; }
 
 .button-row {
   margin: 0.5rem 0; }
