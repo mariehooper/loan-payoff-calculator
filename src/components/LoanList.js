@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './LoanList.css';
 
 export default class LoanList extends React.Component {
@@ -47,14 +48,14 @@ export default class LoanList extends React.Component {
 }
 
 LoanList.propTypes = {
-  loans: React.PropTypes.arrayOf(React.PropTypes.shape({
-    type: React.PropTypes.string,
-    issuer: React.PropTypes.string,
-    rate: React.PropTypes.string,
-    compound: React.PropTypes.string,
-    balance: React.PropTypes.string,
-    payment: React.PropTypes.string,
+  loans: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string,
+    issuer: PropTypes.string,
+    rate: PropTypes.string,
+    compound: PropTypes.string,
+    balance: PropTypes.string,
+    payment: PropTypes.string,
   })).isRequired,
-  openModal: React.PropTypes.func.isRequired,
-  setLoanToEdit: React.PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
+  setLoanToEdit: PropTypes.func.isRequired,
 };

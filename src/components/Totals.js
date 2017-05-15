@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Totals.css';
 
 export default function Totals({ balance, payment, duration, interest }) {
@@ -25,10 +26,10 @@ export default function Totals({ balance, payment, duration, interest }) {
 }
 
 Totals.propTypes = {
-  balance: React.PropTypes.number,
-  payment: React.PropTypes.number,
-  duration: React.PropTypes.number,
-  interest: React.PropTypes.number,
+  balance: PropTypes.number,
+  payment: PropTypes.number,
+  duration: PropTypes.number,
+  interest: PropTypes.number,
 };
 
 Totals.defaultProps = {

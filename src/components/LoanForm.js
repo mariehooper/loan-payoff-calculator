@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './LoanForm.css';
 
 const initialState = {
@@ -11,19 +12,6 @@ const initialState = {
 };
 
 export default class LoanForm extends React.Component {
-  static propTypes = {
-    saveLoan: React.PropTypes.func.isRequired,
-    closeModal: React.PropTypes.func.isRequired,
-    title: React.PropTypes.string.isRequired,
-    loan: React.PropTypes.shape({
-      type: React.PropTypes.string,
-      issuer: React.PropTypes.string,
-      rate: React.PropTypes.string,
-      compound: React.PropTypes.string,
-      balance: React.PropTypes.string,
-      payment: React.PropTypes.string,
-    }).isRequired,
-  };
 
   state = { ...initialState, ...this.props.loan };
 
@@ -128,3 +116,21 @@ export default class LoanForm extends React.Component {
     );
   }
 }
+
+LoanForm.propTypes = {
+  saveLoan: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  loan: PropTypes.shape({
+    type: PropTypes.string,
+    issuer: PropTypes.string,
+    rate: PropTypes.string,
+    compound: PropTypes.string,
+    balance: PropTypes.string,
+    payment: PropTypes.string,
+  }),
+};
+
+LoanForm.defaultProps = {
+  loan: undefined,
+};
