@@ -14,9 +14,6 @@
 .column-rate {
   width: 10%; }
 
-.column-compound {
-  width: 15%; }
-
 .column-balance {
   width: 15%; }
 
@@ -24,9 +21,10 @@ ul.loan-list {
   padding-left: 0;
   margin: 0;
   list-style-type: none; }
-  ul.loan-list li {
-    border-bottom: 1px solid #EEE;
-    padding: 0.5rem 0.2rem; }
+
+ul.loan-list li {
+  border-bottom: 1px solid #EEE;
+  padding: 0.5rem 0.2rem; }
 
 .loan-details {
   display: inline-block;

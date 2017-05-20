@@ -53,6 +53,7 @@ export default class App extends React.Component {
     totals.payment = loans.reduce((payment, loan) => payment + Number(loan.payment), 0);
 
     // find highest duration of loans and total interest paid
+    totals.duration = 0; // reset duraction before calc
     totals.interest = loans.reduce((interest, loan) => {
       const rate = Number((loan.rate / 100) / 12);
       const payment = Number(loan.payment);

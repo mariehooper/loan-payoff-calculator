@@ -22,7 +22,6 @@ export default class LoanList extends React.Component {
           <div className="column-type">Type</div>
           <div className="column-issuer">Issuer</div>
           <div className="column-rate">Rate</div>
-          <div className="column-compound">Compound</div>
           <div className="column-balance">Balance</div>
           <div className="column-payment">Payment</div>
         </div>
@@ -32,7 +31,6 @@ export default class LoanList extends React.Component {
               <div className="loan-details column-type">{loan.type}</div>
               <div className="loan-details column-issuer">{loan.issuer}</div>
               <div className="loan-details column-rate">{loan.rate}%</div>
-              <div className="loan-details column-compound">{loan.compound}</div>
               <div className="loan-details column-balance">{Number(loan.balance).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
               <div className="loan-details column-payment">{Number(loan.payment).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
               <button className="btn btn-link edit-loan" onClick={this.handleEdit}>Edit</button>
