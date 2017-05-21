@@ -90,6 +90,7 @@ export default class App extends React.Component {
             <h2>Loans</h2>
             <LoanList
               loans={this.state.loans}
+              totals={this.state.totals}
               openModal={this.openModal}
               setLoanToEdit={this.setLoanToEdit}
             />

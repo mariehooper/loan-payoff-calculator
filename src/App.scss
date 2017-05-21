@@ -83,3 +83,41 @@
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.65) !important;
 }
+
+// table stylez
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead tr {
+  border-bottom: 1px solid $primary-pink;
+}
+
+th {
+  text-align: left;
+  padding: 0.4rem 0.2rem;
+  font-weight: bold;
+}
+
+tr {
+  font-size: 0.9rem;
+}
+
+tbody tr {
+  border-bottom: 1px solid $light-grey;
+  td {
+    padding: 0.5rem 0.2rem;
+  }
+  &.expandable-cell {
+    width: 100%;
+  }
+}
+
+tfoot tr td {
+  padding: 0.5rem 0.2rem;
+  font-weight: bold;
+  // &.summary-title {
+  //   text-align: right;
+  // }
+}
