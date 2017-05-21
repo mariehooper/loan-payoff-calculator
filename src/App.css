@@ -100,3 +100,58 @@ tbody tr.expandable-cell {
 tfoot tr td {
   padding: 0.5rem 0.2rem;
   font-weight: bold; }
+
+.range-slider {
+  width: 25%; }
+
+.range-slider__range {
+  -webkit-appearance: none;
+  width: calc(100% - (70px));
+  height: 10px;
+  border-radius: 5px;
+  background: #EEE;
+  outline: none;
+  padding: 0;
+  margin: 0; }
+
+.range-slider__range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #DD2476;
+  cursor: pointer;
+  transition: background .15s ease-in-out; }
+
+.range-slider__range::-webkit-slider-thumb:hover {
+  background: #c81f6a; }
+
+.range-slider__range:active::-webkit-slider-thumb {
+  background: #c81f6a; }
+
+.range-slider__range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: #DD2476;
+  cursor: pointer;
+  transition: background .15s ease-in-out; }
+
+.range-slider__range::-moz-range-thumb:hover {
+  background: #c81f6a; }
+
+.range-slider__range:active::-moz-range-thumb {
+  background: #c81f6a; }
+
+.range-slider__value {
+  display: inline-block;
+  margin-left: 0.5rem; }
+
+::-moz-range-track {
+  background: #EEE;
+  border: 0; }
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+  border: 0; }

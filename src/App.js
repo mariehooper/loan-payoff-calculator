@@ -93,6 +93,7 @@ export default class App extends React.Component {
               totals={this.state.totals}
               openModal={this.openModal}
               setLoanToEdit={this.setLoanToEdit}
+              updateLoan={this.updateLoan}
             />
           </div>
           <div className="sidebar col col-2">

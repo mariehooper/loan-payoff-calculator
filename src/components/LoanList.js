@@ -18,6 +18,12 @@ export default class LoanList extends React.Component {
     this.props.openModal();
   }
 
+  handleRangeChange = (event, loan) => {
+    const loanCopy = { ...loan };
+    loanCopy.additional = event.target.value;
+    this.props.updateLoan(loanCopy);
+  }
+
   render() {
     const { loans, totals } = this.props;
     return (
@@ -30,6 +36,7 @@ export default class LoanList extends React.Component {
               <th>Rate</th>
               <th>Balance</th>
               <th>Payment</th>
+              <th>Addtl Payment</th>
               <th />
             </tr>
           </thead>
@@ -41,6 +48,19 @@ export default class LoanList extends React.Component {
                 <td>{loan.rate}%</td>
                 <td>{convertToCurrency(loan.balance)}</td>
                 <td>{convertToCurrency(loan.payment)}</td>
+                <td className="range-slider">
+                  <input
+                    className="range-slider__range"
+                    type="range"
+                    name="additional"
+                    min="0"
+                    max="2000"
+                    step="5"
+                    onChange={(event) => { this.handleRangeChange(event, loan); }}
+                    value={loan.additional}
+                  />
+                  <span className="range-slider__value">{convertToCurrency(loan.additional)}</span>
+                </td>
                 <td><button className="btn btn-link edit-loan" onClick={this.handleEdit}>Edit</button></td>
               </tr>
             ))}

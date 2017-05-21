@@ -8,6 +8,7 @@ const initialState = {
   rate: '',
   balance: '',
   payment: '',
+  additional: 0,
 };
 
 export default class LoanForm extends React.Component {
