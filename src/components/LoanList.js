@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './LoanList.css';
-
-function convertToCurrency(amount) {
-  return Number(amount).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-}
+import { convertToCurrency } from '../utils';
 
 export default class LoanList extends React.Component {
 
@@ -95,6 +92,7 @@ LoanList.propTypes = {
     payment: PropTypes.string,
   })).isRequired,
   openModal: PropTypes.func.isRequired,
+  updateLoan: PropTypes.func.isRequired,
   setLoanToEdit: PropTypes.func.isRequired,
   totals: PropTypes.shape({
     balance: PropTypes.string,

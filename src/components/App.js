@@ -3,9 +3,9 @@ import Modal from 'react-modal';
 import shortid from 'shortid';
 
 import './App.css';
-import LoanForm from './components/LoanForm';
-import Totals from './components/Totals';
-import LoanList from './components/LoanList';
+import LoanForm from './LoanForm';
+import Totals from './Totals';
+import LoanList from './LoanList';
 
 function calculateSidebarTotals(loans, withAdditional = false) {
   return loans.reduce((sidebarTotals, loan) => {
