@@ -7,6 +7,30 @@ import LoanForm from './components/LoanForm';
 import Totals from './components/Totals';
 import LoanList from './components/LoanList';
 
+function calculateSidebarTotals(loans, withAdditional = false) {
+  return loans.reduce((sidebarTotals, loan) => {
+    const balance = Number(loan.balance);
+    const rate = Number((loan.rate / 100) / 12);
+
+    let payment = Number(loan.payment);
+    if (withAdditional) {
+      payment += Number(loan.additional);
+    }
+
+    const numerator = 1 / (1 - ((rate * balance) / payment));
+    const duration = Math.log(numerator) / Math.log(1 + rate);
+
+    return {
+      ...sidebarTotals,
+      interest: sidebarTotals.interest + ((payment * duration) - balance),
+      duration: Math.max(sidebarTotals.duration, duration),
+    };
+  }, {
+    interest: 0,
+    duration: 0,
+  });
+}
+
 export default class App extends React.Component {
   // getInitialState
   state = {
@@ -53,18 +77,17 @@ export default class App extends React.Component {
     totals.payment = loans.reduce((payment, loan) => payment + Number(loan.payment), 0);
 
     // find highest duration of loans and total interest paid
-    totals.duration = 0; // reset duraction before calc
-    totals.interest = loans.reduce((interest, loan) => {
-      const rate = Number((loan.rate / 100) / 12);
-      const payment = Number(loan.payment);
-      const balance = Number(loan.balance);
+    const { interest, duration } = calculateSidebarTotals(loans);
+    totals.interest = interest;
+    totals.duration = duration;
 
-      const numerator = 1 / (1 - ((rate * balance) / payment));
-      const duration = Math.log(numerator) / Math.log(1 + rate);
-      totals.duration = Math.max(totals.duration || 0, duration);
+    const {
+      interest: interestSavings,
+      duration: durationSavings,
+    } = calculateSidebarTotals(loans, true);
+    totals.interestSavings = interest - interestSavings;
+    totals.durationSavings = duration - durationSavings;
 
-      return interest + ((payment * duration) - balance);
-    }, 0);
     // set state
     this.setState({ totals });
   }

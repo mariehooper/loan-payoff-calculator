@@ -18,4 +18,18 @@
   font-size: 2rem;
   color: $white;
   margin: 0.2rem;
+  &.stats-savings {
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+}
+
+.savings-message {
+  color: $white;
+  font-weight: 300;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+  span {
+    font-weight: bold;
+  }
 }

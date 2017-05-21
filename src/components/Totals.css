@@ -14,3 +14,16 @@
   font-size: 2rem;
   color: #FFF;
   margin: 0.2rem; }
+
+.stats-number.stats-savings {
+  font-size: 0.9rem;
+  font-weight: 300; }
+
+.savings-message {
+  color: #FFF;
+  font-weight: 300;
+  font-size: 1.1rem;
+  padding: 0 0.5rem; }
+
+.savings-message span {
+  font-weight: bold; }

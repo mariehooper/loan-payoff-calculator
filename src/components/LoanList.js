@@ -59,7 +59,7 @@ export default class LoanList extends React.Component {
                     onChange={(event) => { this.handleRangeChange(event, loan); }}
                     value={loan.additional}
                   />
-                  <span className="range-slider__value">{convertToCurrency(loan.additional)}</span>
+                  <span className="range-slider__value">${loan.additional}</span>
                 </td>
                 <td><button className="btn btn-link edit-loan" onClick={this.handleEdit}>Edit</button></td>
               </tr>

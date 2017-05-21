@@ -123,10 +123,10 @@ tfoot tr td {
 $range-width: 25% !default;
 $range-handle-color: $primary-pink !default;
 $range-handle-color-hover: darken($primary-pink, 5%) !default;
-$range-handle-size: 20px !default;
+$range-handle-size: 1.25rem !default;
 $range-track-color: $light-grey !default;
-$range-track-height: 10px !default;
-$range-label-width: 70px !default;
+$range-track-height: .625rem !default;
+$range-label-width: 3.125rem !default;
 
 .range-slider {
   width: $range-width;
