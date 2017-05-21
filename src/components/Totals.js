@@ -4,6 +4,10 @@ import './Totals.css';
 import { convertToCurrency } from '../utils';
 
 export default function Totals({ duration, interest, durationSavings, interestSavings }) {
+  function monthsToYears(time) {
+    return time > 12 ? `${(time / 12).toFixed(1)} years` : `${Math.ceil(time)} months`;
+  }
+
   return (
     <div className="totals">
       <div className="stats total-interest">
@@ -13,10 +17,10 @@ export default function Totals({ duration, interest, durationSavings, interestSa
       </div>
       <div className="stats estimate-payoff">
         <h3 className="stats-header">Estimated Payoff Time</h3>
-        <p className="stats-number">{Math.ceil(duration - durationSavings)} months</p>
-        <p className="stats-number stats-savings"> - {Math.ceil(durationSavings)} months</p>
+        <p className="stats-number">{monthsToYears(duration - durationSavings)}</p>
+        <p className="stats-number stats-savings"> - {monthsToYears(durationSavings)}</p>
       </div>
-      <p className="savings-message">By paying extra, you could save <span>{convertToCurrency(interestSavings)}</span> and finish <span>{Math.ceil(durationSavings)}</span> months early!</p>
+      <p className="savings-message">By paying extra, you could save <span>{convertToCurrency(interestSavings)}</span> and finish <span>{monthsToYears(durationSavings)}</span> early!</p>
     </div>
   );
 }
