@@ -6,13 +6,7 @@ import { convertToCurrency } from '../utils';
 export default class LoanList extends React.Component {
 
   handleEdit = (event) => {
-    this.props.setLoanToEdit(event.target.parentNode.parentNode.dataset.id);
-    this.props.openModal();
-  }
-
-  handleAdd = () => {
-    this.props.setLoanToEdit(undefined);
-    this.props.openModal();
+    this.props.openModal(event.target.parentNode.parentNode.dataset.id);
   }
 
   handleRangeChange = (event, loan) => {
@@ -75,7 +69,7 @@ export default class LoanList extends React.Component {
           </tfoot>
         </table>
         <div className="button-row">
-          <button className="btn add-loan" onClick={this.handleAdd}>Add Loan</button>
+          <button className="btn add-loan" onClick={this.openModal}>Add Loan</button>
         </div>
       </div>
     );
@@ -93,9 +87,8 @@ LoanList.propTypes = {
   })).isRequired,
   openModal: PropTypes.func.isRequired,
   updateLoan: PropTypes.func.isRequired,
-  setLoanToEdit: PropTypes.func.isRequired,
   totals: PropTypes.shape({
-    balance: PropTypes.string,
-    payment: PropTypes.string,
+    balance: PropTypes.number,
+    payment: PropTypes.number,
   }).isRequired,
 };

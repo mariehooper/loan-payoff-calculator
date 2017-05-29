@@ -17,7 +17,7 @@ export default class LoanForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.saveLoan(this.state);
+    this.props.addLoan(this.state);
     this.props.closeModal();
   }
 
@@ -100,7 +100,7 @@ export default class LoanForm extends React.Component {
 }
 
 LoanForm.propTypes = {
-  saveLoan: PropTypes.func.isRequired,
+  addLoan: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   loan: PropTypes.shape({

@@ -3,9 +3,11 @@ import Modal from 'react-modal';
 import shortid from 'shortid';
 
 import './App.css';
+import EmptyState from './EmptyState';
 import LoanForm from './LoanForm';
 import Totals from './Totals';
 import LoanList from './LoanList';
+
 
 function calculateSidebarTotals(loans, withAdditional = false) {
   return loans.reduce((sidebarTotals, loan) => {
@@ -62,12 +64,6 @@ export default class App extends React.Component {
     this.setState({ loans }, this.calculateTotals);
   }
 
-  setLoanToEdit = (loanId) => {
-    this.setState({
-      loanToEdit: this.state.loans.find(loan => loan.id === loanId),
-    });
-  }
-
   calculateTotals = () => {
     // make a copy of existing totals
     const totals = { ...this.state.totals };
@@ -92,12 +88,40 @@ export default class App extends React.Component {
     this.setState({ totals });
   }
 
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
+  openModal = (loanId) => {
+    this.setState({
+      modalIsOpen: true,
+      loanToEdit: this.state.loans.find(loan => loan.id === loanId),
+    });
   }
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
+  }
+
+  renderLoans() {
+    const loansExist = this.state.loans.length > 0;
+
+    if (loansExist) {
+      return (
+        <div className="page-wrapper">
+          <div className="col col-1">
+            <h2>Loans</h2>
+            <LoanList
+              loans={this.state.loans}
+              totals={this.state.totals}
+              openModal={this.openModal}
+              updateLoan={this.updateLoan}
+            />
+          </div>
+          <div className="sidebar col col-2">
+            <Totals {...this.state.totals} />
+          </div>
+        </div>
+      );
+    }
+
+    return <EmptyState openModal={this.openModal} />;
   }
 
   render() {
@@ -108,33 +132,23 @@ export default class App extends React.Component {
         <div className="header-block">
           <h1>Loan Payoff Calculator</h1>
         </div>
-        <div className="page-wrapper">
-          <div className="col col-1">
-            <h2>Loans</h2>
-            <LoanList
-              loans={this.state.loans}
-              totals={this.state.totals}
-              openModal={this.openModal}
-              setLoanToEdit={this.setLoanToEdit}
-              updateLoan={this.updateLoan}
+
+        {this.renderLoans()}
+
+        {this.state.modalIsOpen &&
+          <Modal
+            isOpen
+            onRequestClose={this.closeModal}
+            contentLabel={formTitle}
+          >
+            <LoanForm
+              title={formTitle}
+              addLoan={saveForm}
+              closeModal={this.closeModal}
+              loan={this.state.loanToEdit}
             />
-          </div>
-          <div className="sidebar col col-2">
-            <Totals {...this.state.totals} />
-          </div>
-        </div>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel={formTitle}
-        >
-          <LoanForm
-            title={formTitle}
-            saveLoan={saveForm}
-            closeModal={this.closeModal}
-            loan={this.state.loanToEdit}
-          />
-        </Modal>
+          </Modal>
+        }
       </div>
     );
   }
