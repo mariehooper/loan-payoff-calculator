@@ -16,31 +16,6 @@
   background-image: linear-gradient(#DD2476 0%, #FF512F 100%);
   width: 250px; }
 
-.btn {
-  border: 1px solid #DD2476;
-  color: #DD2476;
-  font-size: 0.9rem;
-  background: transparent;
-  padding: 0.5rem 1rem;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s; }
-  .btn:not(:last-child) {
-    margin-right: 0.5rem; }
-  .btn:hover {
-    background: #DD2476;
-    color: #FFF; }
-  .btn-link {
-    border: none; }
-    .btn-link:hover {
-      background: transparent;
-      color: #DD2476; }
-  .btn-submit {
-    float: right; }
-
-.button-row {
-  margin: 0.5rem 0; }
-
 .header-block {
   background: #ec3856;
   color: #FFF;

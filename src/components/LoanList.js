@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from './Button';
 import './LoanList.css';
 import { convertToCurrency } from '../utils';
 
@@ -52,7 +53,7 @@ export default class LoanList extends React.Component {
                   />
                   <span className="range-slider__value">${loan.additional}</span>
                 </td>
-                <td><button className="btn btn-link edit-loan" onClick={this.handleEdit}>Edit</button></td>
+                <td><Button theme="link" onClick={this.handleEdit}>Edit</Button></td>
               </tr>
             ))}
           </tbody>
@@ -69,7 +70,7 @@ export default class LoanList extends React.Component {
           </tfoot>
         </table>
         <div className="button-row">
-          <button className="btn add-loan" onClick={this.openModal}>Add Loan</button>
+          <Button onClick={this.props.openModal}>Add Loan</Button>
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from './Button';
 // import './EmptyState.css';
 
 export default function EmptyState({ openModal }) {
@@ -8,7 +9,7 @@ export default function EmptyState({ openModal }) {
       <div className="empty-state">
         <h2>No loans yet!</h2>
         <p>Make a plan to payoff your loans! Add one to get started.</p>
-        <button className="btn add-loan" onClick={openModal}>Add Loan</button>
+        <Button onClick={openModal}>Add Loan</Button>
       </div>
     </div>
   );

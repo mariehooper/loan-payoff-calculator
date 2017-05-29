@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from './Button';
 import './LoanForm.css';
 
 const initialState = {
@@ -91,8 +92,8 @@ export default class LoanForm extends React.Component {
         </div>
 
         <div className="button-row">
-          <button className="btn btn-submit" type="submit">Save</button>
-          <button className="btn btn-link" onClick={this.props.closeModal}>Cancel</button>
+          <Button theme="submit" type="submit">Save</Button>
+          <Button theme="link" onClick={this.props.closeModal}>Cancel</Button>
         </div>
       </form>
     );

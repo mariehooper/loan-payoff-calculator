@@ -136,11 +136,7 @@ export default class App extends React.Component {
         {this.renderLoans()}
 
         {this.state.modalIsOpen &&
-          <Modal
-            isOpen
-            onRequestClose={this.closeModal}
-            contentLabel={formTitle}
-          >
+          <Modal isOpen onRequestClose={this.closeModal} contentLabel={formTitle}>
             <LoanForm
               title={formTitle}
               addLoan={saveForm}
