@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Stat from './Stat';
 import './Totals.css';
 import { convertToCurrency } from '../utils';
 
@@ -10,16 +11,16 @@ export default function Totals({ duration, interest, durationSavings, interestSa
 
   return (
     <div className="totals">
-      <div className="stats total-interest">
-        <h3 className="stats-header">Projected Interest Paid</h3>
-        <p className="stats-number">{convertToCurrency(interest - interestSavings)}</p>
-        <p className="stats-number stats-savings">- {convertToCurrency(interestSavings)}</p>
-      </div>
-      <div className="stats estimate-payoff">
-        <h3 className="stats-header">Estimated Payoff Time</h3>
-        <p className="stats-number">{monthsToYears(duration - durationSavings)}</p>
-        <p className="stats-number stats-savings"> - {monthsToYears(durationSavings)}</p>
-      </div>
+      <Stat
+        title="Projected Interest Paid"
+        number={convertToCurrency(interest - interestSavings)}
+        savings={convertToCurrency(interestSavings)}
+      />
+      <Stat
+        title="Estimated Payoff Time"
+        number={monthsToYears(duration - durationSavings)}
+        savings={monthsToYears(durationSavings)}
+      />
       <p className="savings-message">By paying extra, you could save <span>{convertToCurrency(interestSavings)}</span> and finish <span>{monthsToYears(durationSavings)}</span> early!</p>
     </div>
   );
