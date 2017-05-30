@@ -108,7 +108,6 @@ LoanForm.propTypes = {
     type: PropTypes.string,
     issuer: PropTypes.string,
     rate: PropTypes.string,
-    compound: PropTypes.string,
     balance: PropTypes.string,
     payment: PropTypes.string,
   }),

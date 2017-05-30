@@ -14,6 +14,6 @@ export default function Stat({ title, number, savings }) {
 
 Stat.propTypes = {
   title: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired,
-  savings: PropTypes.number.isRequired,
+  number: PropTypes.string.isRequired,
+  savings: PropTypes.string.isRequired,
 };
