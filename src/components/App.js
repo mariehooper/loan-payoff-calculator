@@ -42,6 +42,22 @@ export default class App extends React.Component {
     loanToEdit: undefined,
   };
 
+  componentWillMount() {
+    // check if there are loans in localStorage
+    const loans = localStorage.getItem('loans');
+
+    if (loans) {
+      // update our App component's state
+      this.setState({
+        loans: JSON.parse(loans),
+      }, this.calculateTotals);
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('loans', JSON.stringify(nextState.loans));
+  }
+
   addLoan = (loan) => {
     // make copy of existing loans
     const loans = [...this.state.loans];
