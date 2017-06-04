@@ -5,8 +5,12 @@ import './LoanRow.css';
 import { convertToCurrency } from '../utils';
 
 export default class LoanRow extends React.Component {
-  handleEdit = (event) => {
-    this.props.openModal(event.target.parentNode.parentNode.dataset.id);
+  handleEdit = () => {
+    this.props.openModal(this.props.loan.id);
+  }
+
+  handleDelete = () => {
+    this.props.removeLoan(this.props.loan.id);
   }
 
   handleRangeChange = (event, loan) => {
@@ -16,9 +20,9 @@ export default class LoanRow extends React.Component {
   }
 
   render() {
-    const { id, type, issuer, rate, balance, payment, additional } = this.props.loan;
+    const { type, issuer, rate, balance, payment, additional } = this.props.loan;
     return (
-      <tr data-id={id}>
+      <tr>
         <td>{type}</td>
         <td className="expandable-cell">{issuer}</td>
         <td>{rate}%</td>
@@ -37,7 +41,10 @@ export default class LoanRow extends React.Component {
           />
           <span className="range-slider__value">${additional}</span>
         </td>
-        <td><Button theme="link" onClick={this.handleEdit}>Edit</Button></td>
+        <td>
+          <Button theme="link" onClick={this.handleEdit}>Edit</Button>
+          <Button theme="link" onClick={this.handleDelete}>Delete</Button>
+        </td>
       </tr>
     );
   }
@@ -55,4 +62,5 @@ LoanRow.propTypes = {
   }).isRequired,
   updateLoan: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
+  removeLoan: PropTypes.func.isRequired,
 };

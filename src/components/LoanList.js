@@ -4,7 +4,7 @@ import Button from './Button';
 import LoanRow from './LoanRow';
 import { convertToCurrency } from '../utils';
 
-export default function LoanList({ loans, totals, updateLoan, openModal }) {
+export default function LoanList({ loans, totals, updateLoan, removeLoan, openModal }) {
   return (
     <div className="loan-list-wrapper">
       <table className="loan-list">
@@ -21,7 +21,13 @@ export default function LoanList({ loans, totals, updateLoan, openModal }) {
         </thead>
         <tbody>
           {loans.map(loan => (
-            <LoanRow key={loan.id} loan={loan} openModal={openModal} updateLoan={updateLoan} />
+            <LoanRow
+              key={loan.id}
+              loan={loan}
+              openModal={openModal}
+              updateLoan={updateLoan}
+              removeLoan={removeLoan}
+            />
           ))}
         </tbody>
         <tfoot>
@@ -47,6 +53,7 @@ LoanList.propTypes = {
   loans: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
   updateLoan: PropTypes.func.isRequired,
+  removeLoan: PropTypes.func.isRequired,
   totals: PropTypes.shape({
     balance: PropTypes.number,
     payment: PropTypes.number,

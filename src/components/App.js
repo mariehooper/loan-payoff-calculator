@@ -64,6 +64,15 @@ export default class App extends React.Component {
     this.setState({ loans }, this.calculateTotals);
   }
 
+  removeLoan = (loanId) => {
+    const loanIndex = this.state.loans.findIndex(loan => loan.id === loanId);
+    const loans = [
+      ...this.state.loans.slice(0, loanIndex),
+      ...this.state.loans.slice(loanIndex + 1),
+    ];
+    this.setState({ loans }, this.calculateTotals);
+  };
+
   calculateTotals = () => {
     // make a copy of existing totals
     const totals = { ...this.state.totals };
@@ -112,6 +121,7 @@ export default class App extends React.Component {
               totals={this.state.totals}
               openModal={this.openModal}
               updateLoan={this.updateLoan}
+              removeLoan={this.removeLoan}
             />
           </div>
           <div className="sidebar col col-2">
@@ -126,7 +136,7 @@ export default class App extends React.Component {
 
   render() {
     const formTitle = this.state.loanToEdit ? 'Edit existing loan' : 'Add new loan';
-    const saveForm = this.state.loanToEdit ? this.updateLoan : this.addLoan;
+    const saveLoan = this.state.loanToEdit ? this.updateLoan : this.addLoan;
     return (
       <div className="App">
         <div className="header-block">
@@ -139,7 +149,7 @@ export default class App extends React.Component {
           <Modal isOpen onRequestClose={this.closeModal} contentLabel={formTitle}>
             <LoanForm
               title={formTitle}
-              addLoan={saveForm}
+              saveLoan={saveLoan}
               closeModal={this.closeModal}
               loan={this.state.loanToEdit}
             />
