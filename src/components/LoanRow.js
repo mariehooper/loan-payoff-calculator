@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import './LoanRow.css';
+import icons from '../icons.svg';
 import { convertToCurrency } from '../utils';
 
 export default class LoanRow extends React.Component {
@@ -42,8 +43,12 @@ export default class LoanRow extends React.Component {
           <span className="range-slider__value">${additional}</span>
         </td>
         <td>
-          <Button theme="link" onClick={this.handleEdit}>Edit</Button>
-          <Button theme="link" onClick={this.handleDelete}>Delete</Button>
+          <Button theme="link" onClick={this.handleEdit}>
+            <svg className="btn-icon"><use xlinkHref={`${icons}#pencil`} /></svg>
+          </Button>
+          <Button theme="link" onClick={this.handleDelete}>
+            <svg className="btn-icon"><use xlinkHref={`${icons}#trash`} /></svg>
+          </Button>
         </td>
       </tr>
     );

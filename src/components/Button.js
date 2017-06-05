@@ -10,7 +10,7 @@ Button.propTypes = {
   type: PropTypes.string,
   theme: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Button.defaultProps = {

@@ -60,9 +60,12 @@ tr {
   font-size: 0.9rem; }
 
 tbody tr {
-  border-bottom: 1px solid #EEE; }
+  border-bottom: 1px solid #EEE;
+  background-color: #FFF; }
   tbody tr td {
-    padding: 0.5rem 0.2rem; }
+    padding: 0.75rem 0.2rem; }
+    tbody tr td .btn-link {
+      padding: 0; }
   tbody tr.expandable-cell {
     width: 100%; }
 

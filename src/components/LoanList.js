@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransitionGroup } from 'react-transition-group';
 import Button from './Button';
 import LoanRow from './LoanRow';
 import { convertToCurrency } from '../utils';
+import './LoanList.css';
 
 export default function LoanList({ loans, totals, updateLoan, removeLoan, openModal }) {
   return (
@@ -19,7 +21,13 @@ export default function LoanList({ loans, totals, updateLoan, removeLoan, openMo
             <th />
           </tr>
         </thead>
-        <tbody>
+        <CSSTransitionGroup
+          className="loan-row"
+          component="tbody"
+          transitionName="loan-row"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
+        >
           {loans.map(loan => (
             <LoanRow
               key={loan.id}
@@ -29,7 +37,7 @@ export default function LoanList({ loans, totals, updateLoan, removeLoan, openMo
               removeLoan={removeLoan}
             />
           ))}
-        </tbody>
+        </CSSTransitionGroup>
         <tfoot>
           {loans.length > 0 &&
             <tr className="summary-row">
