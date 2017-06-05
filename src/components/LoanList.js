@@ -17,7 +17,7 @@ export default function LoanList({ loans, totals, updateLoan, removeLoan, openMo
             <th>Rate</th>
             <th>Balance</th>
             <th>Payment</th>
-            <th>Addtl Payment</th>
+            <th>Additional Payment</th>
             <th />
           </tr>
         </thead>
