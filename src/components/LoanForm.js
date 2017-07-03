@@ -88,6 +88,7 @@ export default class LoanForm extends React.Component {
               onChange={this.handleChange}
               required
               min="0"
+              max="100"
             />
           </div>
           <div className="column">
