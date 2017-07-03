@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import pig from '../piggy-bank.png';
+import pig from '../piggy-bank-2.png';
 import Button from './Button';
 import './EmptyState.css';
 
