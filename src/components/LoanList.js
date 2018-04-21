@@ -1,12 +1,17 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
-import Button from './Button';
+import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import convertToCurrency from '../utils/convertToCurrency.js';
+import { PrimaryButton } from './Button';
 import LoanRow from './LoanRow';
-import { convertToCurrency } from '../utils';
-import './LoanList.css';
 
-export default function LoanList({ loans, totals, updateLoan, removeLoan, openModal }) {
+export default function LoanList({
+  loans,
+  totals,
+  updateLoan,
+  removeLoan,
+  openModal,
+}) {
   return (
     <div className="loan-list-wrapper">
       <table className="loan-list">
@@ -21,25 +26,24 @@ export default function LoanList({ loans, totals, updateLoan, removeLoan, openMo
             <th />
           </tr>
         </thead>
-        <CSSTransitionGroup
-          className="loan-row"
-          component="tbody"
-          transitionName="loan-row"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
+        <TransitionGroup className="loan-row" component="tbody">
           {loans.map(loan => (
-            <LoanRow
+            <CSSTransition
+              classNames="loan-row"
+              timeout={{ exit: 500, enter: 500 }}
               key={loan.id}
-              loan={loan}
-              openModal={openModal}
-              updateLoan={updateLoan}
-              removeLoan={removeLoan}
-            />
+            >
+              <LoanRow
+                loan={loan}
+                openModal={openModal}
+                updateLoan={updateLoan}
+                removeLoan={removeLoan}
+              />
+            </CSSTransition>
           ))}
-        </CSSTransitionGroup>
+        </TransitionGroup>
         <tfoot>
-          {loans.length > 0 &&
+          {loans.length > 0 && (
             <tr className="summary-row">
               <td colSpan={2} />
               <td className="summary-title">Totals:</td>
@@ -47,11 +51,11 @@ export default function LoanList({ loans, totals, updateLoan, removeLoan, openMo
               <td>{convertToCurrency(totals.payment)}</td>
               <td />
             </tr>
-          }
+          )}
         </tfoot>
       </table>
       <div className="button-row">
-        <Button onClick={openModal}>Add Loan</Button>
+        <PrimaryButton onClick={openModal}>Add Loan</PrimaryButton>
       </div>
     </div>
   );

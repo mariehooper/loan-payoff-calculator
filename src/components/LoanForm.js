@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './Button';
-import './LoanForm.css';
+import React from 'react';
+import styled from 'styled-components';
+import { SubmitButton, LinkButton } from './Button';
 
 const initialState = {
   type: '',
@@ -13,28 +13,27 @@ const initialState = {
 };
 
 export default class LoanForm extends React.Component {
-
   state = { ...initialState, ...this.props.loan };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     this.props.saveLoan(this.state);
     this.props.closeModal();
-  }
+  };
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
   render() {
     return (
       <form className="loan-details-form" onSubmit={this.handleSubmit}>
-        <h3 className="form-header">{this.props.title}</h3>
+        <FormHeader>{this.props.title}</FormHeader>
 
-        <div className="row">
-          <div className="column">
+        <FormRow>
+          <FormColumn>
             <label htmlFor="loan-type">Loan Type</label>
             <select
               id="loan-type"
@@ -48,11 +47,11 @@ export default class LoanForm extends React.Component {
               <option>Auto Loan</option>
               <option>Mortgage</option>
             </select>
-          </div>
-        </div>
+          </FormColumn>
+        </FormRow>
 
-        <div className="row">
-          <div className="column">
+        <FormRow>
+          <FormColumn>
             <label htmlFor="issuer">Issuer</label>
             <input
               type="text"
@@ -62,11 +61,11 @@ export default class LoanForm extends React.Component {
               onChange={this.handleChange}
               required
             />
-          </div>
-        </div>
+          </FormColumn>
+        </FormRow>
 
-        <div className="row">
-          <div className="column">
+        <FormRow>
+          <FormColumn>
             <label htmlFor="balance">Balance</label>
             <input
               type="number"
@@ -77,8 +76,8 @@ export default class LoanForm extends React.Component {
               required
               min="0"
             />
-          </div>
-          <div className="column">
+          </FormColumn>
+          <FormColumn>
             <label htmlFor="rate">Interest Rate</label>
             <input
               type="number"
@@ -90,8 +89,8 @@ export default class LoanForm extends React.Component {
               min="0"
               max="100"
             />
-          </div>
-          <div className="column">
+          </FormColumn>
+          <FormColumn>
             <label htmlFor="payment">Monthly Payment</label>
             <input
               type="number"
@@ -102,12 +101,12 @@ export default class LoanForm extends React.Component {
               required
               min="0"
             />
-          </div>
-        </div>
+          </FormColumn>
+        </FormRow>
 
         <div className="button-row">
-          <Button theme="submit" type="submit">Save</Button>
-          <Button theme="link" onClick={this.props.closeModal}>Cancel</Button>
+          <SubmitButton type="submit">Save</SubmitButton>
+          <LinkButton onClick={this.props.closeModal}>Cancel</LinkButton>
         </div>
       </form>
     );
@@ -130,3 +129,24 @@ LoanForm.propTypes = {
 LoanForm.defaultProps = {
   loan: undefined,
 };
+
+const FormHeader = styled.h3`
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 0;
+  background: var(--primary-pink);
+  padding: 1.5rem 1rem;
+  margin: -20px -20px 20px -20px;
+`;
+
+const FormColumn = styled.div`
+  flex: 1;
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+`;
+
+const FormRow = styled.div`
+  display: flex;
+`;

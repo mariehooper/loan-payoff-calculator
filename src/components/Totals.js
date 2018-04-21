@@ -1,12 +1,19 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import convertToCurrency from '../utils/convertToCurrency.js';
 import Stat from './Stat';
-import './Totals.css';
-import { convertToCurrency } from '../utils';
 
-export default function Totals({ duration, interest, durationSavings, interestSavings }) {
+export default function Totals({
+  duration,
+  interest,
+  durationSavings,
+  interestSavings,
+}) {
   function monthsToYears(time) {
-    return time > 12 ? `${(time / 12).toFixed(1)} years` : `${Math.ceil(time)} months`;
+    return time > 12
+      ? `${(time / 12).toFixed(1)} years`
+      : `${Math.ceil(time)} months`;
   }
 
   return (
@@ -21,7 +28,11 @@ export default function Totals({ duration, interest, durationSavings, interestSa
         number={monthsToYears(duration - durationSavings)}
         savings={monthsToYears(durationSavings)}
       />
-      <p className="savings-message">By paying extra, you could save <span>{convertToCurrency(interestSavings)}</span> and finish <span>{monthsToYears(durationSavings)}</span> early!</p>
+      <SavingsMessage>
+        By paying extra, you could save{' '}
+        <span>{convertToCurrency(interestSavings)}</span> and finish{' '}
+        <span>{monthsToYears(durationSavings)}</span> early!
+      </SavingsMessage>
     </div>
   );
 }
@@ -39,3 +50,13 @@ Totals.defaultProps = {
   durationSavings: 0,
   interestSavings: 0,
 };
+
+const SavingsMessage = styled.p`
+  color: var(--white);
+  font-weight: 300;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+  span {
+    font-weight: 600;
+  }
+`;
