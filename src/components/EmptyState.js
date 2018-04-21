@@ -1,18 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import pig from '../piggy-bank-2.png';
-import Button from './Button';
-import './EmptyState.css';
+import React from 'react';
+import styled from 'styled-components';
+import pig from '../media/piggy-bank-2.png';
+import { PrimaryButton } from './Button';
 
 export default function EmptyState({ openModal }) {
   return (
     <div className="page-wrapper">
-      <div className="empty-state">
-        <img className="empty-state-graphic" src={pig} alt="piggy bank" />
-        <h2 className="empty-state-header">No loans added!</h2>
+      <EmptyStateWrapper>
+        <EmptyStateImg src={pig} alt="piggy bank" />
+        <EmptyStateHeader>No loans added!</EmptyStateHeader>
         <p>Make a plan to pay off your loans! Add one to get started.</p>
-        <Button onClick={openModal}>Add Loan</Button>
-      </div>
+        <PrimaryButton onClick={openModal}>Add Loan</PrimaryButton>
+      </EmptyStateWrapper>
     </div>
   );
 }
@@ -20,3 +20,20 @@ export default function EmptyState({ openModal }) {
 EmptyState.propTypes = {
   openModal: PropTypes.func.isRequired,
 };
+
+const EmptyStateWrapper = styled.div`
+  margin: 2em auto auto;
+  text-align: center;
+  p {
+    margin: 0 0 2rem;
+    color: #555;
+  }
+`;
+
+const EmptyStateImg = styled.img`
+  width: 300px;
+`;
+
+const EmptyStateHeader = styled.h2`
+  margin-top: 1rem;
+`;

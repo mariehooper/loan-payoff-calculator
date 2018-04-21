@@ -2,35 +2,37 @@ import React from 'react';
 import Modal from 'react-modal';
 import shortid from 'shortid';
 
-import './App.css';
+import styled from 'styled-components';
 import EmptyState from './EmptyState';
 import LoanForm from './LoanForm';
 import Totals from './Totals';
 import LoanList from './LoanList';
 
-
 function calculateSidebarTotals(loans, withAdditional = false) {
-  return loans.reduce((sidebarTotals, loan) => {
-    const balance = Number(loan.balance);
-    const rate = Number((loan.rate / 100) / 12);
+  return loans.reduce(
+    (sidebarTotals, loan) => {
+      const balance = Number(loan.balance);
+      const rate = Number(loan.rate / 100 / 12);
 
-    let payment = Number(loan.payment);
-    if (withAdditional) {
-      payment += Number(loan.additional);
-    }
+      let payment = Number(loan.payment);
+      if (withAdditional) {
+        payment += Number(loan.additional);
+      }
 
-    const numerator = 1 / (1 - ((rate * balance) / payment));
-    const duration = Math.log(numerator) / Math.log(1 + rate);
+      const numerator = 1 / (1 - rate * balance / payment);
+      const duration = Math.log(numerator) / Math.log(1 + rate);
 
-    return {
-      ...sidebarTotals,
-      interest: sidebarTotals.interest + ((payment * duration) - balance),
-      duration: Math.max(sidebarTotals.duration, duration),
-    };
-  }, {
-    interest: 0,
-    duration: 0,
-  });
+      return {
+        ...sidebarTotals,
+        interest: sidebarTotals.interest + (payment * duration - balance),
+        duration: Math.max(sidebarTotals.duration, duration),
+      };
+    },
+    {
+      interest: 0,
+      duration: 0,
+    },
+  );
 }
 
 export default class App extends React.Component {
@@ -48,9 +50,12 @@ export default class App extends React.Component {
 
     if (loans) {
       // update our App component's state
-      this.setState({
-        loans: JSON.parse(loans),
-      }, this.calculateTotals);
+      this.setState(
+        {
+          loans: JSON.parse(loans),
+        },
+        this.calculateTotals,
+      );
     }
   }
 
@@ -58,7 +63,7 @@ export default class App extends React.Component {
     localStorage.setItem('loans', JSON.stringify(nextState.loans));
   }
 
-  addLoan = (loan) => {
+  addLoan = loan => {
     // make copy of existing loans
     const loans = [...this.state.loans];
     // push new loan in
@@ -68,19 +73,21 @@ export default class App extends React.Component {
     });
     // set state
     this.setState({ loans }, this.calculateTotals);
-  }
+  };
 
-  updateLoan = (loanToUpdate) => {
-    const loanIndex = this.state.loans.findIndex(loan => loan.id === loanToUpdate.id);
+  updateLoan = loanToUpdate => {
+    const loanIndex = this.state.loans.findIndex(
+      loan => loan.id === loanToUpdate.id,
+    );
     const loans = [
       ...this.state.loans.slice(0, loanIndex),
       loanToUpdate,
       ...this.state.loans.slice(loanIndex + 1),
     ];
     this.setState({ loans }, this.calculateTotals);
-  }
+  };
 
-  removeLoan = (loanId) => {
+  removeLoan = loanId => {
     const loanIndex = this.state.loans.findIndex(loan => loan.id === loanId);
     const loans = [
       ...this.state.loans.slice(0, loanIndex),
@@ -94,8 +101,14 @@ export default class App extends React.Component {
     const totals = { ...this.state.totals };
     // get totals for balance and payment
     const { loans } = this.state;
-    totals.balance = loans.reduce((balance, loan) => balance + Number(loan.balance), 0);
-    totals.payment = loans.reduce((payment, loan) => payment + Number(loan.payment), 0);
+    totals.balance = loans.reduce(
+      (balance, loan) => balance + Number(loan.balance),
+      0,
+    );
+    totals.payment = loans.reduce(
+      (payment, loan) => payment + Number(loan.payment),
+      0,
+    );
 
     // find highest duration of loans and total interest paid
     const { interest, duration } = calculateSidebarTotals(loans);
@@ -111,25 +124,25 @@ export default class App extends React.Component {
 
     // set state
     this.setState({ totals });
-  }
+  };
 
-  openModal = (loanId) => {
+  openModal = loanId => {
     this.setState({
       modalIsOpen: true,
       loanToEdit: this.state.loans.find(loan => loan.id === loanId),
     });
-  }
+  };
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
-  }
+  };
 
   renderLoans() {
     const loansExist = this.state.loans.length > 0;
 
     if (loansExist) {
       return (
-        <div className="page-wrapper">
+        <PageWrapper>
           <div className="col col-1">
             <h2>Loans</h2>
             <LoanList
@@ -140,10 +153,10 @@ export default class App extends React.Component {
               removeLoan={this.removeLoan}
             />
           </div>
-          <div className="sidebar col col-2">
+          <SideBar className="sidebar col col-2">
             <Totals {...this.state.totals} />
-          </div>
-        </div>
+          </SideBar>
+        </PageWrapper>
       );
     }
 
@@ -151,18 +164,24 @@ export default class App extends React.Component {
   }
 
   render() {
-    const formTitle = this.state.loanToEdit ? 'Edit existing loan' : 'Add new loan';
+    const formTitle = this.state.loanToEdit
+      ? 'Edit existing loan'
+      : 'Add new loan';
     const saveLoan = this.state.loanToEdit ? this.updateLoan : this.addLoan;
     return (
-      <div className="App">
-        <div className="header-block">
+      <React.Fragment>
+        <HeaderBlock>
           <h1>Loan Payoff Calculator</h1>
-        </div>
+        </HeaderBlock>
 
         {this.renderLoans()}
 
-        {this.state.modalIsOpen &&
-          <Modal isOpen onRequestClose={this.closeModal} contentLabel={formTitle}>
+        {this.state.modalIsOpen && (
+          <Modal
+            isOpen
+            onRequestClose={this.closeModal}
+            contentLabel={formTitle}
+          >
             <LoanForm
               title={formTitle}
               saveLoan={saveLoan}
@@ -170,8 +189,36 @@ export default class App extends React.Component {
               loan={this.state.loanToEdit}
             />
           </Modal>
-        }
-      </div>
+        )}
+      </React.Fragment>
     );
   }
 }
+const PageWrapper = styled.div`
+  max-width: 1000px;
+  min-height: 500px;
+  margin: -80px auto 2rem auto;
+  box-shadow: 0 2px 4px rgba(50, 50, 93, 0.1);
+  display: flex;
+  background: var(--white);
+`;
+
+const HeaderBlock = styled.div`
+  background: var(--header-color);
+  color: var(--white);
+  width: 100%;
+  text-align: center;
+  z-index: -1;
+  padding: 1rem 0 6rem 0;
+  h1 {
+    font-weight: 300;
+  }
+`;
+
+const SideBar = styled.div`
+  background-image: linear-gradient(
+    var(--primary-pink) 0%,
+    var(--secondary-orange) 100%
+  );
+  width: 250px;
+`;

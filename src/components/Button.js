@@ -1,20 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Button.css';
+import styled from 'styled-components';
 
-export default function Button({ type, theme, onClick, children }) {
-  return <button type={type} className={`btn btn-${theme}`} onClick={onClick}>{children}</button>;
-}
+export const PrimaryButton = styled.button`
+  border: 1px solid var(--primary-pink);
+  color: var(--primary-pink);
+  font-size: 0.9rem;
+  background: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+  &:hover {
+    background: var(--primary-pink);
+    color: var(--white);
+  }
+`;
 
-Button.propTypes = {
-  type: PropTypes.string,
-  theme: PropTypes.string,
-  onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
-};
+export const LinkButton = PrimaryButton.extend`
+  border: none;
+  &:hover {
+    background: transparent;
+    color: var(--primary-pink);
+  }
+`;
 
-Button.defaultProps = {
-  type: 'button',
-  theme: '',
-  onClick: undefined,
-};
+export const SubmitButton = PrimaryButton.extend`
+  float: right;
+`;
